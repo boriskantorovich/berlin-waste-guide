@@ -7,11 +7,14 @@ function handleResponse(response, step) {
     // Hide current step
     document.getElementById(`step${currentStep}`).classList.remove('active');
     
-    if (response === 'yes' || currentStep === totalSteps - 1) {
-        // Show result
-        showResult(step, response);
+    if (response === 'yes') {
+        // Show result for "Yes" response
+        showResult(step, 'yes');
+    } else if (currentStep === totalSteps - 1) {
+        // Show result for "No" on the last step
+        showResult(step, 'no');
     } else {
-        // Move to next step
+        // Move to next step for "No" response
         currentStep++;
         document.getElementById(`step${currentStep}`).classList.add('active');
     }
@@ -23,21 +26,24 @@ function showResult(step, response) {
     const resultText = document.getElementById('result-text');
     const resultDetails = document.getElementById('result-details');
     
-    // Set result text
-    resultText.textContent = response === 'yes' ? step.yesResult : step.noResult;
-    
-    // Add details if available
-    resultDetails.innerHTML = '';
-    if (step.whereTo) {
-        const whereToElement = document.createElement('p');
-        whereToElement.innerHTML = `<strong>Куда сдавать:</strong> ${step.whereTo}`;
-        resultDetails.appendChild(whereToElement);
-    }
-    
-    if (step.preparation) {
-        const preparationElement = document.createElement('p');
-        preparationElement.innerHTML = `<strong>Подготовка:</strong> ${step.preparation}`;
-        resultDetails.appendChild(preparationElement);
+    // Set result text based on response
+    if (response === 'yes') {
+        resultText.textContent = step.yesResult;
+        // Add details if available
+        resultDetails.innerHTML = '';
+        if (step.whereTo) {
+            const whereToElement = document.createElement('p');
+            whereToElement.innerHTML = `<strong>Куда сдавать:</strong> ${step.whereTo}`;
+            resultDetails.appendChild(whereToElement);
+        }
+        if (step.preparation) {
+            const preparationElement = document.createElement('p');
+            preparationElement.innerHTML = `<strong>Подготовка:</strong> ${step.preparation}`;
+            resultDetails.appendChild(preparationElement);
+        }
+    } else {
+        // For "No" response, use noResult if available, otherwise use a default message
+        resultText.textContent = step.noResult || "Этот предмет не подходит под данную категорию. Пожалуйста, вернитесь назад и выберите другой вариант.";
     }
     
     // Show result container
