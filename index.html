@@ -1,184 +1,56 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сортировка отходов в Берлине 2025</title>
+    <title>Pfand Container Guide</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Интерактивная блок-схема сортировки отходов в Берлине (актуально 2025)</h1>
+    <div class="container">
+        <h1>Pfand Container Guide</h1>
+        
+        <div id="flowchart">
+            <div class="flowchart-step active" id="step1">
+                <p class="question">Is the container made of plastic or glass?</p>
+                <div class="button-container">
+                    <button class="yes-btn" onclick="handleResponse('yes')">Yes</button>
+                    <button class="no-btn" onclick="handleResponse('no')">No</button>
+                </div>
+            </div>
 
-    <img src="https://tse2.mm.bing.net/th?id=OIP.km9MnKpqzF_S_nXNQ48glwHaKe&pid=Api" alt="Müll richtig Trennen" class="header-image">
+            <div class="flowchart-step" id="step2">
+                <p class="question">Does it have a Pfand logo or deposit symbol?</p>
+                <div class="button-container">
+                    <button class="yes-btn" onclick="handleResponse('yes')">Yes</button>
+                    <button class="no-btn" onclick="handleResponse('no')">No</button>
+                </div>
+            </div>
 
-    <div class="important-note">
-        <strong>Как пользоваться схемой:</strong><br>
-        Идите сверху вниз; когда ответ «да» — выполняйте инструкцию и завершайте. Если «нет» — переходите к следующему шагу.
+            <div class="flowchart-step" id="step3">
+                <p class="question">Is it a reusable container?</p>
+                <div class="button-container">
+                    <button class="yes-btn" onclick="handleResponse('yes')">Yes</button>
+                    <button class="no-btn" onclick="handleResponse('no')">No</button>
+                </div>
+            </div>
+
+            <div class="flowchart-step" id="step4">
+                <p class="question">Is it a single-use container?</p>
+                <div class="button-container">
+                    <button class="yes-btn" onclick="handleResponse('yes')">Yes</button>
+                    <button class="no-btn" onclick="handleResponse('no')">No</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="result">
+            <p></p>
+        </div>
+
+        <button class="reset-btn" onclick="resetFlowchart()">Start Over</button>
     </div>
 
-    <table>
-        <tr>
-            <th>№</th>
-            <th>Вопрос</th>
-            <th>Куда / как сдавать</th>
-            <th>Подготовка</th>
-        </tr>
-        <tr>
-            <td><span class="step-number">0</span></td>
-            <td><strong>Есть Pfand?</strong><br>
-                • Еinweg-ПЭТ/алюминиевые банки – 0,25 €<br>
-                • Mehrweg-пивные/лимонадные стекло – 0,08-0,15 €<br>
-                • Пивные ящики – ≈1,50 €<br>
-                • КФ-стартер-аккумулятор – 7,50 €</td>
-            <td>Любой супермаркет > 200 м², Getränke-маркет или Pfandautomat.<br>
-                Аккумуляторы – там же, где покупали, либо Recyclinghof. (<a href="https://allaboutberlin.com/guides/pfand-bottles">The Pfand system: how to return bottles in Germany</a>, <a href="https://www.autobatterienbilliger.de/Batteriepfand">Batteriepfand - Autobatterienbilliger DE</a>)</td>
-            <td>Опорожнить, не мять. Сдать и получить купон/наличными.</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">1</span></td>
-            <td>Это <strong>упаковка, пластик, металл, тетрапак, пенопласт</strong>?</td>
-            <td><strong>Gelbe/Orange Wertstoff-Tonne</strong> (<a href="https://www.bsr.de/wertstoffe-20075.php">Wertstoffe - BSR</a>)</td>
-            <td>Коротко ополоснуть, крышки в ту же тонну, не вкладывать одну упаковку в другую.</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">2</span></td>
-            <td>Это <strong>стекло</strong>?</td>
-            <td>Уличный Glas-Container по цветам: белое / зелёное / коричневое. (<a href="https://www.berlin.de/sen/uvk/_assets/umwelt/kreislaufwirtschaft/strategien/abfallwirtschaftsplaene/awp_siedlungsabfaelle_klaerschlamm_2020-2030.pdf">[PDF] abfallwirtschaftsplan berlin</a>)</td>
-            <td>Крышку снять → Gelbe-Tonne. Бросать целиком, не бить.</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">3</span></td>
-            <td>Это <strong>бумага/картон</strong> (газеты, коробки, книги без пластика)?</td>
-            <td><strong>Blaue Tonne</strong></td>
-            <td>Удалить скотч, пластиковые окна, металл. Жирная или влажная бумага → Restmüll.</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">4</span></td>
-            <td>Это <strong>биот отходы</strong> (пищевые остатки, кофе, кожура, садовый мусор)?</td>
-            <td><strong>Braune Bio-Tonne</strong> (<a href="https://www.bsr.de/bioabfall-20009.php">Biogut | BSR</a>)</td>
-            <td>Только в бумажных пакетах/газете, <strong>никакого</strong> биопластика. Мясо, рыба, кости → Restmüll.</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">5</span></td>
-            <td>Это <strong>опасное</strong> (батарейки, лампы, краски, химия, лекарства, литиевые АКБ, E-bike-акку)?</td>
-            <td>Сдать бесплатно в один из 6 BSR-Schadstoffhöfe, аптеки (лекарства), магазины ≥ 25 м² (батарейки). (<a href="https://www.bsr.de/schadstoffe-20363.php">Schadstoffe | BSR</a>, <a href="https://www.remondis-industrie-service.de/wissen-gefaehrliche-abfaelle/news/batterierecht-durchfuehrungsgesetz-neue-ruecknahmepflicht/">BattDG 2025: Neue Rücknahmepflicht für Batterien</a>)</td>
-            <td>Принести в закрытой таре; ≤20 кг/день без платы.</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">6</span></td>
-            <td>Это <strong>текстиль/обувь</strong>?</td>
-            <td>Altkleider-Container или NochMall/BSR-Recyclinghof. С 01 янв 2025 раздельный сбор обязателен. (<a href="https://www.bsr.de/getrenntsammlungspflicht-fuer-alttextilien-ab-01-01-2025-33440.php">Getrenntsammlungspflicht für Alttextilien ab 01.01.2025 - BSR</a>)</td>
-            <td>Постирать, высушить, обувь связать парами. Грязное/рваное → Restmüll (платно при сдаче).</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">7</span></td>
-            <td>Это <strong>электроника</strong>? (телефоны, фены < 25 см или крупнее)</td>
-            <td>• Магазины/дискаунтеры ≥ 800 м² обязаны принять до 3 шт. бесплатно.<br>
-                • Любой BSR-Recyclinghof.<br>
-                • Крупную технику — при доставке новой забирает продавец. (<a href="https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/abfall/elektroschrott-diese-geraete-und-gegenstaende-gehoeren-ins-recycling-12861">Elektroschrott: Diese Geräte und Gegenstände gehören ins Recycling</a>)</td>
-            <td>Удалить батарейки, собирать провода.</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">8</span></td>
-            <td>Это <strong>Sperrmüll</strong> (мебель, матрас, сантехника)?</td>
-            <td>Заказать два бесплатных вывоза/год на bsr.de или привезти в Recyclinghof.</td>
-            <td>Разобрать по возможности; <30 кг/часть.</td>
-        </tr>
-        <tr>
-            <td><span class="step-number">9</span></td>
-            <td><strong>Остальное</strong> (жвачка, окурки, пыль, керамика, разбитое стекло, подгузники, грязная фольга)?</td>
-            <td><strong>Graue/Restmüll-Tonne</strong>. (<a href="https://www.bsr.de/hausmuell-19903.php">Restabfall/Hausmüll | BSR</a>)</td>
-            <td>Можно класть в закрытом пакете. Остывший пепел тоже сюда.</td>
-        </tr>
-    </table>
-
-    <h2>Частые «трудные» предметы</h2>
-    <table>
-        <tr>
-            <th>Предмет</th>
-            <th>Вердикт</th>
-        </tr>
-        <tr>
-            <td>Жвачка, сигаретный фильтр</td>
-            <td>Restmüll (<a href="https://www.bsr.de/hausmuell-19903.php">Restabfall/Hausmüll | BSR</a>)</td>
-        </tr>
-        <tr>
-            <td>Плёнка от сосисок, пластиковые пакеты</td>
-            <td>Gelbe/Orange Tonne (<a href="https://www.bsr.de/wertstoffe-20075.php">Wertstoffe - BSR</a>)</td>
-        </tr>
-        <tr>
-            <td>Капсулы Nespresso®</td>
-            <td><strong>Alu → Gelbe Tonne</strong>, кофе в Bio-Tonne (вскрыть)</td>
-        </tr>
-        <tr>
-            <td>Зубная паста/косметический тюбик</td>
-            <td>Gelbe Tonne (комбинированный пластик/алюминий)</td>
-        </tr>
-        <tr>
-            <td>Лампочка накаливания</td>
-            <td>Restmüll; <strong>энергосберегающие/LED</strong> → Schadstoffhof</td>
-        </tr>
-        <tr>
-            <td>Керамическая кружка</td>
-            <td>Restmüll, не стекло</td>
-        </tr>
-        <tr>
-            <td>Маленькие Li-Ion-пауэрбанки</td>
-            <td>Электроника → Händler/Recyclinghof</td>
-        </tr>
-        <tr>
-            <td>Одежда с пятнами масла, краски</td>
-            <td>Restmüll (не принимают в Altkleider)</td>
-        </tr>
-        <tr>
-            <td>Пропановый баллон</td>
-            <td>Обратно продавцу/газовому пункту, залог ≈ 30 €</td>
-        </tr>
-    </table>
-
-    <h2>Мини-памятка о Pfand</h2>
-    <table>
-        <tr>
-            <th>Контейнер</th>
-            <th>Депозит</th>
-            <th>Где сдавать</th>
-        </tr>
-        <tr>
-            <td>Einweg-ПЭТ ≤3 л, алюминиевые банки</td>
-            <td>0,25 €</td>
-            <td>Любой супермаркет > 200 м² или Automaten</td>
-        </tr>
-        <tr>
-            <td>Mehrweg-стекло/ПЭТ пиво/лимонад</td>
-            <td>0,08-0,15 €</td>
-            <td>Getränkemarkt, Rewe, Edeka</td>
-        </tr>
-        <tr>
-            <td>Пивной ящик (20 бут.)</td>
-            <td>≈1,50 €</td>
-            <td>Getränkemarkt</td>
-        </tr>
-        <tr>
-            <td>Стартер-аккумулятор авто</td>
-            <td>7,50 €</td>
-            <td>Магазин/СТО при покупке новой или Recyclinghof</td>
-        </tr>
-        <tr>
-            <td>Многоразовый кофейный стакан (ReCup и под.)</td>
-            <td>1-2 € (зависит от сети)</td>
-            <td>Любая точка партнёрской сети</td>
-        </tr>
-    </table>
-
-    <h2>Полезные инструменты</h2>
-    <ul>
-        <li><strong>BSR Abfall-ABC</strong> — поиск «куда выбросить X».</li>
-        <li><strong>BSR-App</strong> или сайт bsr.de — ближайший Glas-container, Recyclinghof, бронирование Sperrmüll.</li>
-        <li><strong>Pfandgeben.de</strong> — отдать бутылки сборщикам, если лень сдавать.</li>
-    </ul>
-
-    <footer>
-        <p>Следуя этой схеме вы избежите штрафов за неправильную сортировку и вернёте себе всё возможное Pfand.</p>
-    </footer>
+    <script src="script.js"></script>
 </body>
 </html> 
