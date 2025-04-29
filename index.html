@@ -4,96 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сортировка отходов в Берлине 2025</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #27ae60;
-            --text-color: #333;
-            --background-color: #f9f9f9;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: var(--background-color);
-        }
-
-        .header-image {
-            max-width: 100%;
-            height: auto;
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        h1, h2, h3 {
-            color: var(--primary-color);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        .step {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .step-number {
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-
-        .important-note {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 20px 0;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            th, td {
-                padding: 8px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Интерактивная блок-схема сортировки отходов в Берлине (актуально 2025)</h1>
@@ -120,10 +31,65 @@
                 • Пивные ящики – ≈1,50 €<br>
                 • КФ-стартер-аккумулятор – 7,50 €</td>
             <td>Любой супермаркет > 200 м², Getränke-маркет или Pfandautomat.<br>
-                Аккумуляторы – там же, где покупали, либо Recyclinghof.</td>
+                Аккумуляторы – там же, где покупали, либо Recyclinghof. (<a href="https://allaboutberlin.com/guides/pfand-bottles">The Pfand system: how to return bottles in Germany</a>, <a href="https://www.autobatterienbilliger.de/Batteriepfand">Batteriepfand - Autobatterienbilliger DE</a>)</td>
             <td>Опорожнить, не мять. Сдать и получить купон/наличными.</td>
         </tr>
-        <!-- Additional rows will be added here -->
+        <tr>
+            <td><span class="step-number">1</span></td>
+            <td>Это <strong>упаковка, пластик, металл, тетрапак, пенопласт</strong>?</td>
+            <td><strong>Gelbe/Orange Wertstoff-Tonne</strong> (<a href="https://www.bsr.de/wertstoffe-20075.php">Wertstoffe - BSR</a>)</td>
+            <td>Коротко ополоснуть, крышки в ту же тонну, не вкладывать одну упаковку в другую.</td>
+        </tr>
+        <tr>
+            <td><span class="step-number">2</span></td>
+            <td>Это <strong>стекло</strong>?</td>
+            <td>Уличный Glas-Container по цветам: белое / зелёное / коричневое. (<a href="https://www.berlin.de/sen/uvk/_assets/umwelt/kreislaufwirtschaft/strategien/abfallwirtschaftsplaene/awp_siedlungsabfaelle_klaerschlamm_2020-2030.pdf">[PDF] abfallwirtschaftsplan berlin</a>)</td>
+            <td>Крышку снять → Gelbe-Tonne. Бросать целиком, не бить.</td>
+        </tr>
+        <tr>
+            <td><span class="step-number">3</span></td>
+            <td>Это <strong>бумага/картон</strong> (газеты, коробки, книги без пластика)?</td>
+            <td><strong>Blaue Tonne</strong></td>
+            <td>Удалить скотч, пластиковые окна, металл. Жирная или влажная бумага → Restmüll.</td>
+        </tr>
+        <tr>
+            <td><span class="step-number">4</span></td>
+            <td>Это <strong>биот отходы</strong> (пищевые остатки, кофе, кожура, садовый мусор)?</td>
+            <td><strong>Braune Bio-Tonne</strong> (<a href="https://www.bsr.de/bioabfall-20009.php">Biogut | BSR</a>)</td>
+            <td>Только в бумажных пакетах/газете, <strong>никакого</strong> биопластика. Мясо, рыба, кости → Restmüll.</td>
+        </tr>
+        <tr>
+            <td><span class="step-number">5</span></td>
+            <td>Это <strong>опасное</strong> (батарейки, лампы, краски, химия, лекарства, литиевые АКБ, E-bike-акку)?</td>
+            <td>Сдать бесплатно в один из 6 BSR-Schadstoffhöfe, аптеки (лекарства), магазины ≥ 25 м² (батарейки). (<a href="https://www.bsr.de/schadstoffe-20363.php">Schadstoffe | BSR</a>, <a href="https://www.remondis-industrie-service.de/wissen-gefaehrliche-abfaelle/news/batterierecht-durchfuehrungsgesetz-neue-ruecknahmepflicht/">BattDG 2025: Neue Rücknahmepflicht für Batterien</a>)</td>
+            <td>Принести в закрытой таре; ≤20 кг/день без платы.</td>
+        </tr>
+        <tr>
+            <td><span class="step-number">6</span></td>
+            <td>Это <strong>текстиль/обувь</strong>?</td>
+            <td>Altkleider-Container или NochMall/BSR-Recyclinghof. С 01 янв 2025 раздельный сбор обязателен. (<a href="https://www.bsr.de/getrenntsammlungspflicht-fuer-alttextilien-ab-01-01-2025-33440.php">Getrenntsammlungspflicht für Alttextilien ab 01.01.2025 - BSR</a>)</td>
+            <td>Постирать, высушить, обувь связать парами. Грязное/рваное → Restmüll (платно при сдаче).</td>
+        </tr>
+        <tr>
+            <td><span class="step-number">7</span></td>
+            <td>Это <strong>электроника</strong>? (телефоны, фены < 25 см или крупнее)</td>
+            <td>• Магазины/дискаунтеры ≥ 800 м² обязаны принять до 3 шт. бесплатно.<br>
+                • Любой BSR-Recyclinghof.<br>
+                • Крупную технику — при доставке новой забирает продавец. (<a href="https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/abfall/elektroschrott-diese-geraete-und-gegenstaende-gehoeren-ins-recycling-12861">Elektroschrott: Diese Geräte und Gegenstände gehören ins Recycling</a>)</td>
+            <td>Удалить батарейки, собирать провода.</td>
+        </tr>
+        <tr>
+            <td><span class="step-number">8</span></td>
+            <td>Это <strong>Sperrmüll</strong> (мебель, матрас, сантехника)?</td>
+            <td>Заказать два бесплатных вывоза/год на bsr.de или привезти в Recyclinghof.</td>
+            <td>Разобрать по возможности; <30 кг/часть.</td>
+        </tr>
+        <tr>
+            <td><span class="step-number">9</span></td>
+            <td><strong>Остальное</strong> (жвачка, окурки, пыль, керамика, разбитое стекло, подгузники, грязная фольга)?</td>
+            <td><strong>Graue/Restmüll-Tonne</strong>. (<a href="https://www.bsr.de/hausmuell-19903.php">Restabfall/Hausmüll | BSR</a>)</td>
+            <td>Можно класть в закрытом пакете. Остывший пепел тоже сюда.</td>
+        </tr>
     </table>
 
     <h2>Частые «трудные» предметы</h2>
@@ -134,9 +100,40 @@
         </tr>
         <tr>
             <td>Жвачка, сигаретный фильтр</td>
-            <td>Restmüll</td>
+            <td>Restmüll (<a href="https://www.bsr.de/hausmuell-19903.php">Restabfall/Hausmüll | BSR</a>)</td>
         </tr>
-        <!-- Additional rows will be added here -->
+        <tr>
+            <td>Плёнка от сосисок, пластиковые пакеты</td>
+            <td>Gelbe/Orange Tonne (<a href="https://www.bsr.de/wertstoffe-20075.php">Wertstoffe - BSR</a>)</td>
+        </tr>
+        <tr>
+            <td>Капсулы Nespresso®</td>
+            <td><strong>Alu → Gelbe Tonne</strong>, кофе в Bio-Tonne (вскрыть)</td>
+        </tr>
+        <tr>
+            <td>Зубная паста/косметический тюбик</td>
+            <td>Gelbe Tonne (комбинированный пластик/алюминий)</td>
+        </tr>
+        <tr>
+            <td>Лампочка накаливания</td>
+            <td>Restmüll; <strong>энергосберегающие/LED</strong> → Schadstoffhof</td>
+        </tr>
+        <tr>
+            <td>Керамическая кружка</td>
+            <td>Restmüll, не стекло</td>
+        </tr>
+        <tr>
+            <td>Маленькие Li-Ion-пауэрбанки</td>
+            <td>Электроника → Händler/Recyclinghof</td>
+        </tr>
+        <tr>
+            <td>Одежда с пятнами масла, краски</td>
+            <td>Restmüll (не принимают в Altkleider)</td>
+        </tr>
+        <tr>
+            <td>Пропановый баллон</td>
+            <td>Обратно продавцу/газовому пункту, залог ≈ 30 €</td>
+        </tr>
     </table>
 
     <h2>Мини-памятка о Pfand</h2>
@@ -151,7 +148,26 @@
             <td>0,25 €</td>
             <td>Любой супермаркет > 200 м² или Automaten</td>
         </tr>
-        <!-- Additional rows will be added here -->
+        <tr>
+            <td>Mehrweg-стекло/ПЭТ пиво/лимонад</td>
+            <td>0,08-0,15 €</td>
+            <td>Getränkemarkt, Rewe, Edeka</td>
+        </tr>
+        <tr>
+            <td>Пивной ящик (20 бут.)</td>
+            <td>≈1,50 €</td>
+            <td>Getränkemarkt</td>
+        </tr>
+        <tr>
+            <td>Стартер-аккумулятор авто</td>
+            <td>7,50 €</td>
+            <td>Магазин/СТО при покупке новой или Recyclinghof</td>
+        </tr>
+        <tr>
+            <td>Многоразовый кофейный стакан (ReCup и под.)</td>
+            <td>1-2 € (зависит от сети)</td>
+            <td>Любая точка партнёрской сети</td>
+        </tr>
     </table>
 
     <h2>Полезные инструменты</h2>
