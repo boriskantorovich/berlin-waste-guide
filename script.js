@@ -11,8 +11,11 @@ function handleResponse(response, step) {
         // Show result for "Yes" response
         showResult(step, 'yes');
     } else if (currentStep === totalSteps - 1) {
-        // Show result for "No" on the last step
-        showResult(step, 'no');
+        // Show message to start over or look for complicated cases
+        const resultContainer = document.getElementById('result');
+        const resultText = document.getElementById('result-text');
+        resultText.textContent = "Это конец. Начните заново или посмотрите сложные случаи ниже.";
+        resultContainer.style.display = 'block';
     } else {
         // Move to next step for "No" response
         currentStep++;
@@ -41,9 +44,6 @@ function showResult(step, response) {
             preparationElement.innerHTML = `<strong>Подготовка:</strong> ${step.preparation}`;
             resultDetails.appendChild(preparationElement);
         }
-    } else {
-        // For "No" response, use noResult if available, otherwise use a default message
-        resultText.textContent = step.noResult || "Этот предмет не подходит под данную категорию. Пожалуйста, вернитесь назад и выберите другой вариант.";
     }
     
     // Show result container
@@ -151,50 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show first step
     document.getElementById(`step${currentStep}`).classList.add('active');
 });
-
-// Flowchart logic
-const flowchart = {
-    step1: {
-        yes: 'step2',
-        no: 'step3'
-    },
-    step2: {
-        yes: 'result',
-        no: 'step3'
-    },
-    step3: {
-        yes: 'result',
-        no: 'step4'
-    },
-    step4: {
-        yes: 'result',
-        no: 'result'
-    }
-};
-
-// Results for different paths
-const results = {
-    'step1-yes': 'This is a Pfand bottle! Return it to any supermarket to get your deposit back.',
-    'step2-yes': 'This is a Pfand bottle! Return it to any supermarket to get your deposit back.',
-    'step3-yes': 'This is a Pfand can! Return it to any supermarket to get your deposit back.',
-    'step4-yes': 'This is a reusable container! Return it to the store where you bought it.',
-    'step4-no': 'This item does not have a Pfand. Please dispose of it in the appropriate recycling bin.'
-};
-
-function showResult(response) {
-    const resultDiv = document.getElementById('result');
-    const resultText = resultDiv.querySelector('p');
-    
-    if (response === 'yes') {
-        resultText.textContent = 'This container is eligible for Pfand! Please return it to a collection point to receive your deposit back.';
-        resultText.className = 'success';
-    } else {
-        resultText.textContent = 'This container is not eligible for Pfand. Please dispose of it in the appropriate recycling bin.';
-        resultText.className = 'failure';
-    }
-    
-    resultDiv.style.display = 'block';
-}
 
 function resetFlowchart() {
     currentStep = 1;
