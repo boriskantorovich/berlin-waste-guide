@@ -1,6 +1,43 @@
 // Make functions globally accessible
-let currentStep = 0;
+let currentStep = 1;  // Start from 1 instead of 0
 let totalSteps = 0;
+
+// Initialize flowchart steps
+function initializeFlowchart() {
+    const flowchart = document.getElementById('flowchart');
+    flowchart.innerHTML = ''; // Clear existing content
+    
+    // Create step elements
+    for (let i = 1; i <= totalSteps; i++) {
+        const stepDiv = document.createElement('div');
+        stepDiv.id = `step${i}`;
+        stepDiv.className = 'step';
+        
+        const question = document.createElement('p');
+        question.textContent = `Step ${i} Question`; // Replace with actual questions
+        
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'button-container';
+        
+        const yesButton = document.createElement('button');
+        yesButton.textContent = 'Да';
+        yesButton.onclick = () => handleResponse('yes', i);
+        
+        const noButton = document.createElement('button');
+        noButton.textContent = 'Нет';
+        noButton.onclick = () => handleResponse('no', i);
+        
+        buttonContainer.appendChild(yesButton);
+        buttonContainer.appendChild(noButton);
+        
+        stepDiv.appendChild(question);
+        stepDiv.appendChild(buttonContainer);
+        flowchart.appendChild(stepDiv);
+    }
+    
+    // Show first step
+    document.getElementById('step1').classList.add('active');
+}
 
 // Function to handle user response
 function handleResponse(response, step) {
@@ -60,14 +97,14 @@ function showResult(step, response) {
 // Function to reset flowchart
 function resetFlowchart() {
     // Reset current step
-    currentStep = 0;
+    currentStep = 1;
     
     // Hide all steps and remove active class
     const steps = document.querySelectorAll('.flowchart-step');
     steps.forEach(step => step.classList.remove('active'));
     
     // Show first step
-    const firstStep = document.getElementById('step0');
+    const firstStep = document.getElementById('step1');
     if (firstStep) {
         firstStep.classList.add('active');
     }
@@ -79,105 +116,14 @@ function resetFlowchart() {
     }
 }
 
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize variables
-    currentStep = 0;
-    totalSteps = flowchartData.steps.length;
-    
-    // Set title and instructions
-    document.getElementById('flowchart-title').textContent = flowchartData.title;
-    document.getElementById('flowchart-instructions').textContent = flowchartData.instructions;
-    
-    // Populate difficult items table
-    const difficultItemsTable = document.getElementById('difficult-items-table').getElementsByTagName('tbody')[0];
-    flowchartData.difficultItems.forEach(item => {
-        const row = difficultItemsTable.insertRow();
-        row.insertCell(0).textContent = item.item;
-        row.insertCell(1).textContent = item.verdict;
-    });
-    
-    // Populate Pfand table
-    const pfandTable = document.getElementById('pfand-table').getElementsByTagName('tbody')[0];
-    flowchartData.pfandInfo.forEach(item => {
-        const row = pfandTable.insertRow();
-        row.insertCell(0).textContent = item.container;
-        row.insertCell(1).textContent = item.deposit;
-        row.insertCell(2).textContent = item.where;
-    });
-    
-    // Populate useful tools list
-    const toolsList = document.getElementById('tools-list');
-    flowchartData.usefulTools.forEach(tool => {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${tool.name}</strong> — ${tool.description}`;
-        toolsList.appendChild(li);
-    });
-    
-    // Create flowchart steps
-    const flowchartContainer = document.getElementById('flowchart');
-    flowchartData.steps.forEach(step => {
-        const stepElement = document.createElement('div');
-        stepElement.className = 'flowchart-step';
-        stepElement.id = `step${step.id}`;
-        
-        // Create question
-        const questionElement = document.createElement('p');
-        questionElement.className = 'question';
-        questionElement.textContent = step.question;
-        stepElement.appendChild(questionElement);
-        
-        // Add details if available
-        if (step.details) {
-            const detailsElement = document.createElement('ul');
-            detailsElement.className = 'details';
-            step.details.forEach(detail => {
-                const li = document.createElement('li');
-                li.textContent = detail;
-                detailsElement.appendChild(li);
-            });
-            stepElement.appendChild(detailsElement);
-        }
-        
-        // Create buttons
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'button-container';
-        
-        const yesButton = document.createElement('button');
-        yesButton.className = 'yes-btn';
-        yesButton.textContent = 'Да';
-        yesButton.addEventListener('click', () => handleResponse('yes', step));
-        
-        const noButton = document.createElement('button');
-        noButton.className = 'no-btn';
-        noButton.textContent = 'Нет';
-        noButton.addEventListener('click', () => handleResponse('no', step));
-        
-        buttonContainer.appendChild(yesButton);
-        buttonContainer.appendChild(noButton);
-        stepElement.appendChild(buttonContainer);
-        
-        flowchartContainer.appendChild(stepElement);
-    });
+    totalSteps = 5; // Set your total number of steps
+    initializeFlowchart();
     
     // Add event listener to reset button
-    document.getElementById('reset-btn').addEventListener('click', resetFlowchart);
-    
-    // Show first step
-    document.getElementById(`step${currentStep}`).classList.add('active');
-});
-
-function resetFlowchart() {
-    currentStep = 1;
-    
-    // Hide all steps
-    for (let i = 1; i <= totalSteps; i++) {
-        const stepElement = document.getElementById(`step${i}`);
-        stepElement.classList.remove('active');
+    const resetBtn = document.getElementById('reset-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetFlowchart);
     }
-    
-    // Show first step
-    document.getElementById('step1').classList.add('active');
-    
-    // Hide result
-    document.getElementById('result').style.display = 'none';
-} 
+}); 
