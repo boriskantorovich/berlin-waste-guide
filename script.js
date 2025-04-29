@@ -44,6 +44,13 @@ function showResult(step, response) {
             preparationElement.innerHTML = `<strong>Подготовка:</strong> ${step.preparation}`;
             resultDetails.appendChild(preparationElement);
         }
+        
+        // Add "Start Over" button
+        const startOverButton = document.createElement('button');
+        startOverButton.className = 'reset-btn';
+        startOverButton.textContent = 'Начать заново';
+        startOverButton.addEventListener('click', resetFlowchart);
+        resultDetails.appendChild(startOverButton);
     }
     
     // Show result container
