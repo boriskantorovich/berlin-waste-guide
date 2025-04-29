@@ -59,17 +59,24 @@ function showResult(step, response) {
 
 // Function to reset flowchart
 function resetFlowchart() {
-    // Hide all steps
-    for (let i = 0; i < totalSteps; i++) {
-        document.getElementById(`step${i}`).classList.remove('active');
-    }
-    
-    // Hide result
-    document.getElementById('result').style.display = 'none';
-    
     // Reset current step
     currentStep = 0;
-    document.getElementById(`step${currentStep}`).classList.add('active');
+    
+    // Hide all steps and remove active class
+    const steps = document.querySelectorAll('.flowchart-step');
+    steps.forEach(step => step.classList.remove('active'));
+    
+    // Show first step
+    const firstStep = document.getElementById('step0');
+    if (firstStep) {
+        firstStep.classList.add('active');
+    }
+    
+    // Hide result container
+    const resultContainer = document.getElementById('result');
+    if (resultContainer) {
+        resultContainer.style.display = 'none';
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
