@@ -1,5 +1,5 @@
 // Make functions globally accessible
-let currentStep = 1;  // Start from 1 instead of 0
+let currentStep = 0;  // Start from 0 to match data.js
 let totalSteps = 0;
 
 // Initialize flowchart steps
@@ -7,56 +7,107 @@ function initializeFlowchart() {
     const flowchart = document.getElementById('flowchart');
     flowchart.innerHTML = ''; // Clear existing content
     
+    // Set title and instructions
+    document.getElementById('flowchart-title').textContent = flowchartData.title;
+    document.getElementById('flowchart-instructions').textContent = flowchartData.instructions;
+    
     // Create step elements
-    for (let i = 1; i <= totalSteps; i++) {
+    flowchartData.steps.forEach(step => {
         const stepDiv = document.createElement('div');
-        stepDiv.id = `step${i}`;
+        stepDiv.id = `step${step.id}`;
         stepDiv.className = 'step';
+        stepDiv.style.display = 'none'; // Hide all steps initially
         
+        // 1. Заголовок и список деталей
+        if (step.details) {
+            const detailsTitle = document.createElement('div');
+            detailsTitle.innerHTML = 'Это что-то из:';
+            stepDiv.appendChild(detailsTitle);
+
+            const detailsList = document.createElement('ul');
+            step.details.forEach(detail => {
+                const li = document.createElement('li');
+                li.textContent = detail;
+                detailsList.appendChild(li);
+            });
+            stepDiv.appendChild(detailsList);
+        }
+        
+        // 2. Вопрос
         const question = document.createElement('p');
-        question.textContent = `Step ${i} Question`; // Replace with actual questions
+        question.innerHTML = `<strong>${step.question}</strong>`;
+        stepDiv.appendChild(question);
         
+        // 3. Кнопки
         const buttonContainer = document.createElement('div');
         buttonContainer.className = 'button-container';
         
         const yesButton = document.createElement('button');
         yesButton.textContent = 'Да';
-        yesButton.onclick = () => handleResponse('yes', i);
+        yesButton.onclick = () => handleResponse('yes', step);
         
         const noButton = document.createElement('button');
         noButton.textContent = 'Нет';
-        noButton.onclick = () => handleResponse('no', i);
+        noButton.onclick = () => handleResponse('no', step);
         
         buttonContainer.appendChild(yesButton);
         buttonContainer.appendChild(noButton);
         
-        stepDiv.appendChild(question);
         stepDiv.appendChild(buttonContainer);
         flowchart.appendChild(stepDiv);
-    }
+    });
+    
+    // Populate difficult items table
+    const difficultItemsTable = document.getElementById('difficult-items-table').getElementsByTagName('tbody')[0];
+    flowchartData.difficultItems.forEach(item => {
+        const row = difficultItemsTable.insertRow();
+        row.insertCell(0).textContent = item.item;
+        row.insertCell(1).textContent = item.verdict;
+    });
+    
+    // Populate Pfand table
+    const pfandTable = document.getElementById('pfand-table').getElementsByTagName('tbody')[0];
+    flowchartData.pfandInfo.forEach(item => {
+        const row = pfandTable.insertRow();
+        row.insertCell(0).textContent = item.container;
+        row.insertCell(1).textContent = item.deposit;
+        row.insertCell(2).textContent = item.where;
+    });
     
     // Show first step
-    document.getElementById('step1').classList.add('active');
+    document.getElementById('step0').style.display = 'block';
 }
 
 // Function to handle user response
 function handleResponse(response, step) {
     // Hide current step
-    document.getElementById(`step${currentStep}`).classList.remove('active');
+    document.getElementById(`step${step.id}`).style.display = 'none';
     
     if (response === 'yes') {
         // Show result for "Yes" response
         showResult(step, 'yes');
-    } else if (currentStep === totalSteps - 1) {
+    } else if (step.id === totalSteps - 1) {
         // Show message to start over or look for complicated cases
         const resultContainer = document.getElementById('result');
         const resultText = document.getElementById('result-text');
+        const resultDetails = document.getElementById('result-details');
         resultText.textContent = "Это конец. Начните заново или посмотрите сложные случаи ниже.";
+        resultDetails.innerHTML = '';
+
+        // Add "Start Over" button
+        const startOverButton = document.createElement('button');
+        startOverButton.className = 'reset-btn';
+        startOverButton.textContent = 'Начать заново';
+        startOverButton.addEventListener('click', resetFlowchart);
+        resultDetails.appendChild(startOverButton);
+
         resultContainer.style.display = 'block';
     } else {
         // Move to next step for "No" response
-        currentStep++;
-        document.getElementById(`step${currentStep}`).classList.add('active');
+        const nextStep = document.getElementById(`step${step.id + 1}`);
+        if (nextStep) {
+            nextStep.style.display = 'block';
+        }
     }
 }
 
@@ -96,29 +147,22 @@ function showResult(step, response) {
 
 // Function to reset flowchart
 function resetFlowchart() {
-    // Reset current step
-    currentStep = 1;
-    
-    // Hide all steps and remove active class
-    const steps = document.querySelectorAll('.flowchart-step');
-    steps.forEach(step => step.classList.remove('active'));
+    // Hide all steps
+    flowchartData.steps.forEach(step => {
+        const stepElement = document.getElementById(`step${step.id}`);
+        stepElement.style.display = 'none';
+    });
     
     // Show first step
-    const firstStep = document.getElementById('step1');
-    if (firstStep) {
-        firstStep.classList.add('active');
-    }
+    document.getElementById('step0').style.display = 'block';
     
-    // Hide result container
-    const resultContainer = document.getElementById('result');
-    if (resultContainer) {
-        resultContainer.style.display = 'none';
-    }
+    // Hide result
+    document.getElementById('result').style.display = 'none';
 }
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    totalSteps = 5; // Set your total number of steps
+    totalSteps = flowchartData.steps.length;
     initializeFlowchart();
     
     // Add event listener to reset button
