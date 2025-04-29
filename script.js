@@ -74,6 +74,28 @@ function initializeFlowchart() {
         row.insertCell(2).textContent = item.where;
     });
     
+    // Populate useful tools list
+    const toolsList = document.getElementById('tools-list');
+    toolsList.innerHTML = '';
+    flowchartData.usefulTools.forEach(tool => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${tool.name}</strong> — ${tool.description}`;
+        toolsList.appendChild(li);
+    });
+
+    // Embed BSR recyclinghoefe map
+    const mapIframeId = 'bsr-map-iframe';
+    if (!document.getElementById(mapIframeId)) {
+        const mapIframe = document.createElement('iframe');
+        mapIframe.id = mapIframeId;
+        mapIframe.src = 'https://www.bsr.de/recyclinghoefe-20503.php?currRCLocation=88898f9e-66ba-4c77-9e57-486d186f2d6a&view=map';
+        mapIframe.width = '100%';
+        mapIframe.height = '500';
+        mapIframe.style.border = '1px solid #ccc';
+        mapIframe.style.marginTop = '24px';
+        toolsList.parentElement.appendChild(mapIframe);
+    }
+    
     // Show first step
     document.getElementById('step0').style.display = 'block';
 }
