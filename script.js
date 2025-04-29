@@ -1,7 +1,68 @@
+// Make functions globally accessible
+let currentStep = 0;
+let totalSteps = 0;
+
+// Function to handle user response
+function handleResponse(response, step) {
+    // Hide current step
+    document.getElementById(`step${currentStep}`).classList.remove('active');
+    
+    if (response === 'yes' || currentStep === totalSteps - 1) {
+        // Show result
+        showResult(step, response);
+    } else {
+        // Move to next step
+        currentStep++;
+        document.getElementById(`step${currentStep}`).classList.add('active');
+    }
+}
+
+// Function to show result
+function showResult(step, response) {
+    const resultContainer = document.getElementById('result');
+    const resultText = document.getElementById('result-text');
+    const resultDetails = document.getElementById('result-details');
+    
+    // Set result text
+    resultText.textContent = response === 'yes' ? step.yesResult : step.noResult;
+    
+    // Add details if available
+    resultDetails.innerHTML = '';
+    if (step.whereTo) {
+        const whereToElement = document.createElement('p');
+        whereToElement.innerHTML = `<strong>Куда сдавать:</strong> ${step.whereTo}`;
+        resultDetails.appendChild(whereToElement);
+    }
+    
+    if (step.preparation) {
+        const preparationElement = document.createElement('p');
+        preparationElement.innerHTML = `<strong>Подготовка:</strong> ${step.preparation}`;
+        resultDetails.appendChild(preparationElement);
+    }
+    
+    // Show result container
+    resultContainer.style.display = 'block';
+}
+
+// Function to reset flowchart
+function resetFlowchart() {
+    // Hide all steps
+    for (let i = 0; i < totalSteps; i++) {
+        document.getElementById(`step${i}`).classList.remove('active');
+    }
+    
+    // Hide result
+    document.getElementById('result').style.display = 'none';
+    
+    // Reset current step
+    currentStep = 0;
+    document.getElementById(`step${currentStep}`).classList.add('active');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize variables
-    let currentStep = 0;
-    const totalSteps = flowchartData.steps.length;
+    currentStep = 0;
+    totalSteps = flowchartData.steps.length;
     
     // Set title and instructions
     document.getElementById('flowchart-title').textContent = flowchartData.title;
@@ -77,63 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         flowchartContainer.appendChild(stepElement);
     });
-    
-    // Function to handle user response
-    function handleResponse(response, step) {
-        // Hide current step
-        document.getElementById(`step${currentStep}`).classList.remove('active');
-        
-        if (response === 'yes' || currentStep === totalSteps - 1) {
-            // Show result
-            showResult(step, response);
-        } else {
-            // Move to next step
-            currentStep++;
-            document.getElementById(`step${currentStep}`).classList.add('active');
-        }
-    }
-    
-    // Function to show result
-    function showResult(step, response) {
-        const resultContainer = document.getElementById('result');
-        const resultText = document.getElementById('result-text');
-        const resultDetails = document.getElementById('result-details');
-        
-        // Set result text
-        resultText.textContent = response === 'yes' ? step.yesResult : step.noResult;
-        
-        // Add details if available
-        resultDetails.innerHTML = '';
-        if (step.whereTo) {
-            const whereToElement = document.createElement('p');
-            whereToElement.innerHTML = `<strong>Куда сдавать:</strong> ${step.whereTo}`;
-            resultDetails.appendChild(whereToElement);
-        }
-        
-        if (step.preparation) {
-            const preparationElement = document.createElement('p');
-            preparationElement.innerHTML = `<strong>Подготовка:</strong> ${step.preparation}`;
-            resultDetails.appendChild(preparationElement);
-        }
-        
-        // Show result container
-        resultContainer.style.display = 'block';
-    }
-    
-    // Function to reset flowchart
-    function resetFlowchart() {
-        // Hide all steps
-        for (let i = 0; i < totalSteps; i++) {
-            document.getElementById(`step${i}`).classList.remove('active');
-        }
-        
-        // Hide result
-        document.getElementById('result').style.display = 'none';
-        
-        // Reset current step
-        currentStep = 0;
-        document.getElementById(`step${currentStep}`).classList.add('active');
-    }
     
     // Add event listener to reset button
     document.getElementById('reset-btn').addEventListener('click', resetFlowchart);

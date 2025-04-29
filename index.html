@@ -1,56 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pfand Container Guide</title>
+    <title>Сортировка отходов в Берлине</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Pfand Container Guide</h1>
+        <h1 id="flowchart-title"></h1>
+        <p id="flowchart-instructions" class="instructions"></p>
         
         <div id="flowchart">
-            <div class="flowchart-step active" id="step1">
-                <p class="question">Is the container made of plastic or glass?</p>
-                <div class="button-container">
-                    <button class="yes-btn" onclick="handleResponse('yes')">Yes</button>
-                    <button class="no-btn" onclick="handleResponse('no')">No</button>
-                </div>
+            <!-- Flowchart steps will be dynamically inserted here -->
+        </div>
+
+        <div id="result" class="result-container">
+            <p id="result-text"></p>
+            <div id="result-details" class="result-details"></div>
+        </div>
+
+        <div class="additional-info">
+            <div class="difficult-items">
+                <h2>Частые «трудные» предметы</h2>
+                <table id="difficult-items-table">
+                    <thead>
+                        <tr>
+                            <th>Предмет</th>
+                            <th>Вердикт</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Difficult items will be dynamically inserted here -->
+                    </tbody>
+                </table>
             </div>
 
-            <div class="flowchart-step" id="step2">
-                <p class="question">Does it have a Pfand logo or deposit symbol?</p>
-                <div class="button-container">
-                    <button class="yes-btn" onclick="handleResponse('yes')">Yes</button>
-                    <button class="no-btn" onclick="handleResponse('no')">No</button>
-                </div>
+            <div class="pfand-info">
+                <h2>Мини-памятка о Pfand</h2>
+                <table id="pfand-table">
+                    <thead>
+                        <tr>
+                            <th>Контейнер</th>
+                            <th>Депозит</th>
+                            <th>Где сдавать</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Pfand info will be dynamically inserted here -->
+                    </tbody>
+                </table>
             </div>
 
-            <div class="flowchart-step" id="step3">
-                <p class="question">Is it a reusable container?</p>
-                <div class="button-container">
-                    <button class="yes-btn" onclick="handleResponse('yes')">Yes</button>
-                    <button class="no-btn" onclick="handleResponse('no')">No</button>
-                </div>
-            </div>
-
-            <div class="flowchart-step" id="step4">
-                <p class="question">Is it a single-use container?</p>
-                <div class="button-container">
-                    <button class="yes-btn" onclick="handleResponse('yes')">Yes</button>
-                    <button class="no-btn" onclick="handleResponse('no')">No</button>
-                </div>
+            <div class="useful-tools">
+                <h2>Полезные инструменты</h2>
+                <ul id="tools-list">
+                    <!-- Useful tools will be dynamically inserted here -->
+                </ul>
             </div>
         </div>
 
-        <div id="result">
-            <p></p>
-        </div>
-
-        <button class="reset-btn" onclick="resetFlowchart()">Start Over</button>
+        <button id="reset-btn" class="reset-btn">Начать заново</button>
     </div>
 
+    <!-- Load data.js first, then script.js -->
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
